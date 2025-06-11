@@ -38,13 +38,20 @@ st.markdown("""
 }
 .project-info {
     text-align: center;
-    background-color: #f8f9fa;
-    padding: 1rem;
+    background-color: #ffffff;
+    padding: 1.5rem;
     border-radius: 0.5rem;
-    border-left: 5px solid #012169;
+    border: 2px solid #012169;
     margin-bottom: 2rem;
-    color: #333;
-    border: 1px solid #dee2e6;
+    color: #000000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.project-info h3, .project-info h4, .project-info p {
+    color: #000000 !important;
+    margin: 0.5rem 0;
+}
+.duke-blue {
+    color: #012169 !important;
 }
 .metric-card {
     background-color: #f0f2f6;
@@ -167,9 +174,9 @@ def main():
     # Project info
     st.markdown("""
     <div class="project-info">
-        <h3 class="duke-blue">Duke University AIPI540 - Deep Learning Computer Vision</h3>
-        <h4>Final Project by <strong>Evan Moh</strong></h4>
-        <p><strong>Target:</strong> FROC Score > 0.85 | <strong>Current Status:</strong> 🔄 In Development</p>
+        <h3 class="duke-blue" style="color: #012169 !important;">Duke University AIPI540 - Deep Learning Computer Vision</h3>
+        <h4 style="color: #000000 !important;">Final Project by <strong>Evan Moh</strong></h4>
+        <p style="color: #000000 !important;"><strong>Target:</strong> FROC Score > 0.85 | <strong>Current Status:</strong> 🔄 In Development</p>
     </div>
     """, unsafe_allow_html=True)
     
