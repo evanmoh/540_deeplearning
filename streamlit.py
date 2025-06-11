@@ -286,7 +286,8 @@ def main():
             xaxis_title="Model Approach",
             yaxis_title="FROC Score",
             height=400,
-            showlegend=False
+            showlegend=False,
+            xaxis=dict(tickangle=45)
         )
         
         st.plotly_chart(fig, use_container_width=True)
