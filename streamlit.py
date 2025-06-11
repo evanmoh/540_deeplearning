@@ -43,6 +43,8 @@ st.markdown("""
     border-radius: 0.5rem;
     border-left: 5px solid #012169;
     margin-bottom: 2rem;
+    color: #333;
+    border: 1px solid #dee2e6;
 }
 .metric-card {
     background-color: #f0f2f6;
@@ -167,7 +169,7 @@ def main():
     <div class="project-info">
         <h3 class="duke-blue">Duke University AIPI540 - Deep Learning Computer Vision</h3>
         <h4>Final Project by <strong>Evan Moh</strong></h4>
-        <p><strong>Target:</strong> FROC Score > 0.951 | <strong>Current Status:</strong> 🔄 In Development</p>
+        <p><strong>Target:</strong> FROC Score > 0.85 | <strong>Current Status:</strong> 🔄 In Development</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -231,8 +233,8 @@ def main():
     
     with col1:
         froc_value = current_model['froc']
-        target_diff = froc_value - 0.951
-        froc_color = "success-metric" if froc_value > 0.951 else "danger-metric"
+        target_diff = froc_value - 0.85
+        froc_color = "success-metric" if froc_value > 0.85 else "danger-metric"
         st.markdown(f'<div class="metric-card {froc_color}">', unsafe_allow_html=True)
         st.metric("FROC Score", f"{froc_value:.4f}", f"{target_diff:.4f} from target")
         st.markdown('</div>', unsafe_allow_html=True)
@@ -278,8 +280,8 @@ def main():
         ))
         
         # Target line
-        fig.add_hline(y=0.951, line_dash="dash", line_color="red", 
-                     annotation_text="Target: 0.951", annotation_position="top right")
+        fig.add_hline(y=0.85, line_dash="dash", line_color="red", 
+                     annotation_text="Target: 0.85", annotation_position="top right")
         
         fig.update_layout(
             title="FROC Performance Comparison",
@@ -418,7 +420,7 @@ def main():
         st.write(f"**Total Training Time:** {dataset_info['total_time_minutes']:.1f} min")
         st.write(f"**Best FROC So Far:** {max([m['froc'] for m in model_data.values()]):.4f}")
         st.write(f"**Best AUC So Far:** {max([m['auc'] for m in model_data.values()]):.4f}")
-        st.write(f"**Target Gap:** {0.951 - max([m['froc'] for m in model_data.values()]):.4f}")
+        st.write(f"**Target Gap:** {0.85 - max([m['froc'] for m in model_data.values()]):.4f}")
     
     # Project Status
     st.markdown("---")
@@ -440,7 +442,7 @@ def main():
         st.write("🔄 Data augmentation strategies")
         st.write("🔄 Ensemble methods combining all three models")
         st.write("🔄 Advanced 3D CNN architectures (ResNet3D, DenseNet3D)")
-        st.write("🎯 **Goal:** Achieve FROC > 0.951")
+        st.write("🎯 **Goal:** Achieve FROC > 0.85")
     
     # Footer
     st.markdown("---")
@@ -448,7 +450,7 @@ def main():
     st.markdown(f"""
     **Duke University AIPI540 - Deep Learning Computer Vision Project**  
     **Student:** Evan Moh | **Last Updated:** {current_time.strftime('%Y-%m-%d %H:%M:%S')}  
-    **Status:** 🔄 Development in Progress | **Target:** FROC > 0.951
+    **Status:** 🔄 Development in Progress | **Target:** FROC > 0.85
     """)
 
 if __name__ == "__main__":
