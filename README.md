@@ -176,30 +176,11 @@ luna16-nodule-detection/
 ├── 📄 LICENSE                      # MIT license
 ├── 📂 src/                         # Source code
 │   ├── 📄 pipeline.py              # Main training pipeline
-│   ├── 📄 models.py                # Model architectures
-│   ├── 📄 preprocessing.py         # CT scan processing
-│   ├── 📄 evaluation.py            # FROC metrics
-│   └── 📄 utils.py                 # Helper functions
 ├── 📂 scripts/                     # Utility scripts
 │   ├── 📄 download_luna16.py       # Dataset download
-│   ├── 📄 train_models.py          # Training script
-│   └── 📄 evaluate_models.py       # Evaluation script
-├── 📂 notebooks/                   # Jupyter notebooks
-│   ├── 📄 01_data_exploration.ipynb
-│   ├── 📄 02_baseline_models.ipynb
-│   └── 📄 03_deep_learning.ipynb
 ├── 📂 docs/                        # Documentation
-│   ├── 📄 setup_guide.md
-│   ├── 📄 model_architecture.md
-│   └── 📄 results_analysis.md
-├── 📂 results/                     # Results and plots
-│   ├── 📄 performance_comparison.png
-│   ├── 📄 training_curves.png
-│   └── 📄 model_metrics.json
-└── 📂 tests/                       # Unit tests
-    ├── 📄 test_models.py
-    ├── 📄 test_preprocessing.py
-    └── 📄 test_evaluation.py
+    ├── 📄 citation.md
+
 ```
 
 ## 🛠️ Development
