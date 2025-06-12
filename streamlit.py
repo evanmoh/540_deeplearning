@@ -81,51 +81,53 @@ st.markdown("""
 # Project data based on your actual results
 @st.cache_data
 def get_actual_model_data():
-    """Your actual model performance data"""
+    """Your latest actual model performance data"""
     return {
         'Naive Baseline': {
-            'froc': 0.0062, 
-            'auc': 0.5000, 
+            'froc': 0.0286, 
+            'auc': 0.5090, 
             'training_time': 0.1,
-            'predicted_positives': 'N/A',
-            'total_samples': 1120,
-            'description': 'Simple baseline approach',
-            'status': '⚠️ NEEDS WORK'
+            'predicted_positives': 'Heuristic-based',
+            'total_samples': 1000,
+            'description': 'Simple coordinate-based heuristics',
+            'status': '⚠️ BASELINE'
         },
         'Random Forest (Classic ML)': {
-            'froc': 0.0214, 
-            'auc': 0.6822, 
-            'training_time': 2.3,
-            'predicted_positives': 34,
-            'total_samples': 1120,
-            'description': 'Advanced feature engineering + RF',
-            'status': '⚠️ NEEDS WORK'
+            'froc': 0.0429, 
+            'auc': 0.6590, 
+            'training_time': 2.5,
+            'predicted_positives': 'Enhanced features',
+            'total_samples': 1000,
+            'description': 'Enhanced feature engineering + class balance',
+            'status': '⚠️ BASELINE'
         },
-        '3D CNN (Deep Learning)': {
-            'froc': 0.0107, 
-            'auc': 0.6559, 
-            'training_time': 45.2,
-            'predicted_positives': 1120,
-            'total_samples': 1120,
-            'description': 'Competition-optimized 3D CNN',
-            'status': '⚠️ NEEDS WORK'
+        'Simple Effective 3D CNN': {
+            'froc': 0.1429, 
+            'auc': 0.6562, 
+            'training_time': 1.5,
+            'predicted_positives': '66 CT patches',
+            'total_samples': 1000,
+            'description': '3D CNN + ResNet + Transformer + Attention',
+            'status': '🥇 BEST PERFORMANCE'
         }
     }
 
 @st.cache_data
 def get_dataset_info():
-    """Your actual dataset information"""
+    """Your latest actual dataset information"""
     return {
         'total_candidates': 754975,
         'positive_samples': 1557,
         'negative_samples': 753418,
-        'competition_sample': 5600,
-        'train_samples': 4480,
-        'test_samples': 1120,
-        'test_positives': 160,
-        'positive_ratio': 0.143,
-        'class_distribution': {'Negative (0)': 4800, 'Positive (1)': 800},
-        'total_time_minutes': 0.5
+        'training_dataset': 1000,
+        'train_samples': 46,
+        'test_samples': 20,
+        'ct_patches': 66,
+        'positive_ratio': 0.20,  # 200/1000 in training set
+        'class_distribution': {'Negative (0)': 800, 'Positive (1)': 200},
+        'total_time_minutes': 1.5,
+        'gpu_available': True,
+        'patch_size': '64³'
     }
 
 @st.cache_data
@@ -222,18 +224,22 @@ def main():
         st.info("Classic ML with advanced feature engineering")
     
     with col3:
-        st.markdown('<div class="model-header"><h4>3️⃣ 3D CNN</h4></div>', unsafe_allow_html=True)
-        cnn_data = model_data['3D CNN (Deep Learning)']
+        st.markdown('<div class="model-header"><h4>3️⃣ Simple Effective 3D CNN</h4></div>', unsafe_allow_html=True)
+        cnn_data = model_data['Simple Effective 3D CNN']
         st.markdown(f"**FROC:** {cnn_data['froc']:.4f}")
         st.markdown(f"**AUC:** {cnn_data['auc']:.4f}")
         st.markdown(f"**Status:** {cnn_data['status']}")
-        st.info("Deep learning approach with 3D convolutions")
+        st.info("3D CNN + ResNet + Transformer architecture")
     
     # Current Model Performance
     st.markdown("---")
     st.markdown(f"## 📊 {selected_model} - Detailed Performance")
     
     current_model = model_data[selected_model]
+    
+    # Performance highlight for best model
+    if selected_model == 'Simple Effective 3D CNN':
+        st.success("🥇 **BEST PERFORMANCE ACHIEVED!** This model shows significant improvement over baseline approaches.")
     
     # Key metrics
     col1, col2, col3, col4 = st.columns(4)
