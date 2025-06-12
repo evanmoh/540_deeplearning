@@ -183,34 +183,6 @@ luna16-nodule-detection/
 
 ```
 
-## 🛠️ Development
-
-### **Running Tests:**
-```bash
-python -m pytest tests/ -v
-```
-
-### **Training Models:**
-```bash
-# Train all three models
-python scripts/train_models.py
-
-# Train specific model
-python scripts/train_models.py --model 3dcnn
-
-# Custom configuration
-python scripts/train_models.py --epochs 50 --batch-size 16
-```
-
-### **Evaluation:**
-```bash
-# Evaluate all models
-python scripts/evaluate_models.py
-
-# Generate performance plots
-python scripts/plot_results.py
-```
-
 ## 📊 Metrics Explanation
 
 ### **FROC (Free-Response Operating Characteristic):**
