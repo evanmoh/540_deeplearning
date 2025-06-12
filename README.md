@@ -1,4 +1,4 @@
-# 🏥 LUNA16 Lung Nodule Detection Pipeline
+# 🏥 LUNA16 Lung Nodule Detection Project
 
 [![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.13+-orange.svg)](https://tensorflow.org/)
