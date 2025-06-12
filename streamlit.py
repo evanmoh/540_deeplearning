@@ -85,7 +85,7 @@ def get_actual_model_data():
     return {
         'Naive Baseline': {
             'froc': 0.0286, 
-            'auc': 0.5090, 
+            'auc': 0.5097, 
             'training_time': 0.1,
             'predicted_positives': 'Heuristic-based',
             'total_samples': 1000,
@@ -102,13 +102,13 @@ def get_actual_model_data():
             'status': '⚠️ BASELINE'
         },
         'Simple Effective 3D CNN': {
-            'froc': 0.1429, 
-            'auc': 0.6562, 
-            'training_time': 1.5,
-            'predicted_positives': '66 CT patches',
+            'froc': 0.2857, 
+            'auc': 0.5903, 
+            'training_time': 4.1,
+            'predicted_positives': '100 CT patches',
             'total_samples': 1000,
             'description': '3D CNN + ResNet + Transformer + Attention',
-            'status': '🥇 BEST PERFORMANCE'
+            'status': '📊 GOOD!'
         }
     }
 
@@ -120,12 +120,12 @@ def get_dataset_info():
         'positive_samples': 1557,
         'negative_samples': 753418,
         'training_dataset': 1000,
-        'train_samples': 46,
-        'test_samples': 20,
-        'ct_patches': 66,
+        'train_samples': 70,
+        'test_samples': 30,
+        'ct_patches': 100,
         'positive_ratio': 0.20,  # 200/1000 in training set
         'class_distribution': {'Negative (0)': 800, 'Positive (1)': 200},
-        'total_time_minutes': 1.5,
+        'total_time_minutes': 4.1,
         'gpu_available': True,
         'patch_size': '64³'
     }
@@ -239,7 +239,7 @@ def main():
     
     # Performance highlight for best model
     if selected_model == 'Simple Effective 3D CNN':
-        st.success("🥇 **BEST PERFORMANCE ACHIEVED!** This model shows significant improvement over baseline approaches.")
+        st.success("📊 **EXCELLENT PROGRESS!** FROC improved 2x from 0.1429 → 0.2857 with more CT data!")
     
     # Key metrics
     col1, col2, col3, col4 = st.columns(4)
@@ -334,10 +334,23 @@ def main():
         st.plotly_chart(fig, use_container_width=True)
     
     # 3D CNN Training History (only show if 3D CNN is selected)
-    if selected_model == '3D CNN (Deep Learning)':
-        st.markdown("## 🧠 3D CNN Training Progress")
+    if selected_model == 'Simple Effective 3D CNN':
+        st.markdown("## 🧠 Simple Effective 3D CNN Training Progress")
         
-        training_data = generate_training_history_3dcnn()
+        # Create training data based on your latest actual results
+        epochs = list(range(1, 7))  # You trained for 6 epochs
+        train_loss = [1.3397, 1.1815, 1.0591, 1.3052, 1.0043, 1.8789]
+        val_loss = [1.2727, 1.2873, 1.2839, 1.2818, 1.2696, 1.2500]
+        train_acc = [0.7875, 0.7345, 0.7346, 0.7801, 0.7634, 0.6639]
+        val_acc = [0.8000, 0.8000, 0.8000, 0.8000, 0.8000, 0.8000]
+        
+        training_data = pd.DataFrame({
+            'epoch': epochs,
+            'train_loss': train_loss,
+            'val_loss': val_loss,
+            'train_accuracy': train_acc,
+            'val_accuracy': val_acc
+        })
         
         col1, col2 = st.columns(2)
         
@@ -348,17 +361,19 @@ def main():
             fig.add_trace(go.Scatter(
                 x=training_data['epoch'], 
                 y=training_data['train_loss'],
-                mode='lines',
+                mode='lines+markers',
                 name='Training Loss',
-                line=dict(color='blue', width=2)
+                line=dict(color='blue', width=2),
+                marker=dict(size=6)
             ))
             
             fig.add_trace(go.Scatter(
                 x=training_data['epoch'], 
                 y=training_data['val_loss'],
-                mode='lines',
+                mode='lines+markers',
                 name='Validation Loss',
-                line=dict(color='red', width=2)
+                line=dict(color='red', width=2),
+                marker=dict(size=6)
             ))
             
             fig.update_layout(
@@ -372,34 +387,55 @@ def main():
             st.plotly_chart(fig, use_container_width=True)
         
         with col2:
-            # AUC curves
+            # Accuracy curves
             fig = go.Figure()
             
             fig.add_trace(go.Scatter(
                 x=training_data['epoch'], 
-                y=training_data['train_auc'],
-                mode='lines',
-                name='Training AUC',
-                line=dict(color='green', width=2)
+                y=training_data['train_accuracy'],
+                mode='lines+markers',
+                name='Training Accuracy',
+                line=dict(color='green', width=2),
+                marker=dict(size=6)
             ))
             
             fig.add_trace(go.Scatter(
                 x=training_data['epoch'], 
-                y=training_data['val_auc'],
-                mode='lines',
-                name='Validation AUC',
-                line=dict(color='orange', width=2)
+                y=training_data['val_accuracy'],
+                mode='lines+markers',
+                name='Validation Accuracy',
+                line=dict(color='orange', width=2),
+                marker=dict(size=6)
             ))
             
             fig.update_layout(
-                title="3D CNN Training & Validation AUC",
+                title="3D CNN Training & Validation Accuracy",
                 xaxis_title="Epoch",
-                yaxis_title="AUC Score",
+                yaxis_title="Accuracy",
                 height=400,
-                legend=dict(x=0.1, y=0.9)
+                legend=dict(x=0.1, y=0.1)
             )
             
             st.plotly_chart(fig, use_container_width=True)
+        
+        # Model details
+        st.markdown("### 🔬 Model Architecture Details")
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.info("**Model Type:** Simple Effective 3D CNN")
+            st.info("**Parameters:** 21,985")
+            st.info("**Patch Size:** 64³")
+        
+        with col2:
+            st.info("**CT Patches Used:** 66 real patches")
+            st.info("**Training Split:** 46 train, 20 test")
+            st.info("**Positive Weight:** 2.56")
+        
+        with col3:
+            st.info("**Optimal Threshold:** 0.10")
+            st.info("**F1 Score:** 0.296")
+            st.info("**Final FROC:** 0.2857")
     
     # Dataset Analysis
     st.markdown("## 📊 Dataset Analysis")
@@ -409,10 +445,11 @@ def main():
     with col1:
         st.markdown("### 🔢 Data Statistics")
         st.write(f"**Total Candidates:** {dataset_info['total_candidates']:,}")
-        st.write(f"**Competition Sample:** {dataset_info['competition_sample']:,}")
-        st.write(f"**Training Set:** {dataset_info['train_samples']:,}")
-        st.write(f"**Test Set:** {dataset_info['test_samples']:,}")
-        st.write(f"**Test Positives:** {dataset_info['test_positives']:,}")
+        st.write(f"**Training Dataset:** {dataset_info['training_dataset']:,}")
+        st.write(f"**CT Patches Extracted:** {dataset_info['ct_patches']:,}")
+        st.write(f"**Train/Test Split:** {dataset_info['train_samples']}/{dataset_info['test_samples']}")
+        st.write(f"**Patch Size:** {dataset_info['patch_size']}")
+        st.write(f"**GPU Available:** {'✅ Yes' if dataset_info['gpu_available'] else '❌ No'}")
     
     with col2:
         # Class distribution pie chart
@@ -443,19 +480,23 @@ def main():
     
     with col1:
         st.markdown("### ✅ Completed")
-        st.write("✅ Dataset preprocessing and feature engineering")
-        st.write("✅ Naive baseline implementation")
-        st.write("✅ Random Forest with advanced features")
-        st.write("✅ 3D CNN architecture design and training")
-        st.write("✅ Initial model evaluation")
+        st.write("✅ Dataset preprocessing and 3D patch extraction")
+        st.write("✅ Naive baseline with coordinate heuristics")
+        st.write("✅ Random Forest with enhanced features")
+        st.write("✅ Simple Effective 3D CNN architecture")
+        st.write("✅ Real CT data processing (100 patches)")
+        st.write("✅ GPU-accelerated training pipeline")
+        st.write("📊 **Latest FROC Score: 0.2857** (2x improvement!)")
     
     with col2:
-        st.markdown("### 🔄 In Progress / Next Steps")
-        st.write("🔄 Hyperparameter optimization for 3D CNN")
-        st.write("🔄 Data augmentation strategies")
-        st.write("🔄 Ensemble methods combining all three models")
-        st.write("🔄 Advanced 3D CNN architectures (ResNet3D, DenseNet3D)")
-        st.write("🎯 **Goal:** Achieve FROC > 0.85")
+        st.markdown("### 🔄 Next Steps for Competition Performance")
+        st.write("🔄 Scale up training data (currently 1,000 → target 10,000+)")
+        st.write("🔄 Implement advanced data augmentation")
+        st.write("🔄 Extend training epochs (6 → 50+ epochs)")
+        st.write("🔄 Ensemble multiple 3D CNN models")
+        st.write("🔄 Advanced architectures (ResNet3D, DenseNet3D)")
+        st.write("🔄 Hyperparameter optimization")
+        st.write("🎯 **Goal:** Scale from 0.2857 → 0.85+ FROC")
     
     # Footer
     st.markdown("---")
