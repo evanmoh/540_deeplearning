@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io/)
 
-> **Duke University AIPI540 - Deep Learning Computer Vision Final Project**  
+> **Duke University AIPI540 - Deep Learning Computer Vision Project**  
 > **Author:** Evan Moh  
 > **Target:** Achieve FROC Score > 0.85 for lung nodule detection
 
@@ -77,7 +77,7 @@ data/raw/
 Launch the **Streamlit dashboard** for real-time model comparison and analysis:
 
 ```bash
-streamlit run dashboard.py
+streamlit run streamlit.py
 ```
 
 **Features:**
@@ -172,7 +172,7 @@ Epoch 6: Val Loss 1.2500, Acc 80.0% ← Best
 luna16-nodule-detection/
 ├── 📄 README.md                    # This file
 ├── 📄 requirements.txt             # Dependencies
-├── 📄 dashboard.py                 # Streamlit dashboard
+├── 📄 streamlit.py                 # Streamlit dashboard
 ├── 📄 LICENSE                      # MIT license
 ├── 📂 src/                         # Source code
 │   ├── 📄 pipeline.py              # Main training pipeline
