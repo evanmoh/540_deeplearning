@@ -1,0 +1,36 @@
+# LUNA16 Streamlit Dashboard Dependencies
+# Duke University AIPI540 - Deep Learning Computer Vision  
+# Author: Evan Moh
+# 
+# Minimal requirements for Streamlit Cloud deployment
+
+# Core Dashboard
+streamlit>=1.28.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualization
+plotly>=5.15.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Utilities
+Pillow>=10.0.0# LUNA16 Streamlit Dashboard Dependencies
+# Duke University AIPI540 - Deep Learning Computer Vision  
+# Author: Evan Moh
+# 
+# Minimal requirements for Streamlit Cloud deployment
+# (ML training dependencies removed for compatibility)
+
+# Core Dashboard
+streamlit>=1.28.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualization
+plotly>=5.15.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Utilities (dashboard only)
+Pillow>=10.0.0
